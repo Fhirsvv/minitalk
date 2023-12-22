@@ -6,7 +6,7 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 20:10:10 by ecortes-          #+#    #+#             */
-/*   Updated: 2023/12/18 22:05:51 by ecortes-         ###   ########.fr       */
+/*   Updated: 2023/12/19 11:40:09 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,6 @@ void sig_handler(int sig)
 
 int main(void)
 {
-	/*struct sigaction sa;
-
-	sa.sa_flags = 0;
-	sa.sa_handler = &sig_handler;
-	sigaction(SIGUSR1, &sa, NULL);
-	sigaction(SIGUSR2, &sa, NULL);*/
 	signal(SIGUSR1, sig_handler);
 	signal(SIGUSR2, sig_handler);
 
