@@ -6,7 +6,7 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 20:10:10 by ecortes-          #+#    #+#             */
-/*   Updated: 2023/12/26 20:26:57 by ecortes-         ###   ########.fr       */
+/*   Updated: 2023/12/26 21:27:00 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,33 @@
 #include <unistd.h>
 
 void sig_handler(int sig)
+{
+	static char *buff;
+	static int count;
+	int digit;
+	int nb;
+	int i;
+
+	i = 0;
+	nb = 0;
+	if (count == 0)
+		memcpy(buff, "00000000", 8);
+	if (sig == SIGUSR2)
+		buff[count] = '1';
+	count++;
+	if (count == 8)
+	{
+		while (i < 8)
+		{
+			digit = buff[i] - '0';
+			nb = nb * 2 + digit;
+			i++;
+		}
+		count = 0;
+	}
+	ft_printf("%c", nb);
+}
+/*void sig_handler(int sig)
 {
 	static char buff[8];
 	static int count;
@@ -35,7 +62,7 @@ void sig_handler(int sig)
 				result += 1 << (7 - i);
 		}
 	ft_printf("%d\n", result);
-}
+}*/
 
 
 int main(void)
