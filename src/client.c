@@ -6,7 +6,7 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 19:52:34 by ecortes-          #+#    #+#             */
-/*   Updated: 2023/12/26 20:11:17 by ecortes-         ###   ########.fr       */
+/*   Updated: 2023/12/26 21:09:38 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void ft_error(int n)
 	if (n == 1)
 	{
 		ft_printf("Error: Numero incorrecto de parametros\n");
-		ft_printf("Ejecutar asi:\n./client <PID> <Mensaje>\n");
+		ft_printf("Ejecutar asi:\t./client <PID> <Mensaje>\n");
 	}
 	else if (n == 2)
 		ft_printf("Error: Pid invalido\n");
@@ -28,7 +28,30 @@ void ft_error(int n)
 	exit(n);
 }
 
-static int sig_bits(char c, int pid)
+int sig_bits(char c, int pid)
+{
+	int nb = (int)c;
+	int binary[8];
+	int i = 0;
+ft_printf("llegamos a sig_bits\n");
+	while (nb > 0)
+	{
+		binary[i] = nb % 2;
+		nb = nb / 2;
+		i++;
+	}
+	while (i >= 0)
+	{
+		if (binary[i] == 0)
+			kill(pid, SIGUSR1);
+		else
+			kill(pid, SIGUSR2);
+		i--;
+	}
+	ft_printf("salimos de sig_bits\n");
+	return (0);
+}
+/*static int sig_bits(char c, int pid)
 {
 	size_t i;
 	int bit;
@@ -56,15 +79,14 @@ static int sig_bits(char c, int pid)
 			if (kill(pid, SIGUSR2) == -1)
 				bit = 0;
 		}
-		usleep(50);
 	}
 	return (bit);
-}
+}*/
 
 static int sig_send(char *str, int pid)
 {
 	size_t count;
-
+ft_printf("\nllegamos al sigsend\n");
 	count = 0;
 	if(!strlen(str))
 		ft_error(4);
@@ -72,7 +94,6 @@ static int sig_send(char *str, int pid)
 	{
 		if (!sig_bits(str[count], pid))
 			return (0);
-		usleep(50);
 		count++;
 	}
 	return (1);
