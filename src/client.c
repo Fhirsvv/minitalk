@@ -6,7 +6,7 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 19:52:34 by ecortes-          #+#    #+#             */
-/*   Updated: 2023/12/20 18:43:42 by ecortes-         ###   ########.fr       */
+/*   Updated: 2023/12/26 20:11:17 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,15 @@ static int sig_bits(char c, int pid)
 	while (buff[++i])
 	{
 		if (buff[i] == '0')
+		{
 			if (kill(pid, SIGUSR1) == -1)
 				bit = 0;
+		}
 		else
+		{
 			if (kill(pid, SIGUSR2) == -1)
 				bit = 0;
+		}
 		usleep(50);
 	}
 	return (bit);
@@ -97,7 +101,8 @@ int main(int argc, char **argv)
 	if (str_allnum(argv[1]) == 0)
 		ft_error(2);
 	pid = ft_atoi(argv[1]);
+	if (!pid)
+		ft_error(2);
 	if (!sig_send(argv[2], pid))
 		ft_error(3);
-	
 }

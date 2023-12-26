@@ -11,41 +11,34 @@
 #                                                                              #
 # **************************************************************************** #
 
-CLIENT = client
-SERVER = server
+SERVER_SRCS	= src/server.c
+CLIENT_SRCS	= src/client.c
+HEADERS		= include/minitalk.h
 
-LIBFT = ./libft/libft.a
-LIBFT_DIR = ./libft
+CC			= clang -Wall -Werror -Wextra
+CC_FLAGS	= -Llibft -lft
 
-CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+%.o: %.c ${HEADERS} libft/libft.a
+			${CC} $< -c -o $@
 
-SRC1 = client.c
-SRC2 = server.c
+all:		libft server client
+			@echo "Compilado con éxito"
 
-OBJ1 = $(SRC1:.c=.o)
-OBJ2 = $(SRC2:.c=.o)
+libft:
+			@make --no-print-directory -C libft
 
-all: $(CLIENT) $(SERVER)
+server:		${SERVER_SRCS:.c=.o} ${HEADERS}
+			@${CC} ${SERVER_SRCS} ${CC_FLAGS} -o server
 
-$(OBJ1): $(SRC1)
-	$(CC) $(CFLAGS) -c $(SRC1) -o $(OBJ1)
-
-$(OBJ2): $(SRC2)
-	$(CC) $(CFLAGS) -c $(SRC2) -o $(OBJ2)
-
-$(CLIENT): $(OBJ1)
-	$(CC) $(CFLAGS) -o $(CLIENT) $(OBJ1) $(LIBFT)
-
-$(SERVER): $(OBJ2)
-	$(CC) $(CFLAGS) -o $(SERVER) $(OBJ2) $(LIBFT)
+client:		${CLIENT_SRCS:.c=.o} ${HEADERS}
+			@${CC} ${CLIENT_SRCS} ${CC_FLAGS} -o client
 
 clean:
-	rm -f $(OBJ1) $(OBJ2)
+			rm -rdf ${SERVER_SRCS:.c=.o} ${CLIENT_SRCS:.c=.o}
+			@make clean -C libft
 
-fclean: clean
-	rm -f $(CLIENT) $(SERVER)
+fclean:		clean
+			@make fclean -C libft
 
-re: fclean all
+.PHONY:		all libft clean fclean
 
-.PHONY: all clean fclean re

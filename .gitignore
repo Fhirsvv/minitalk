@@ -17,3 +17,6 @@
 build/
 Debug/
 Release/
+server
+client
+.DS_Store

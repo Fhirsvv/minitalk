@@ -6,7 +6,7 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 20:10:10 by ecortes-          #+#    #+#             */
-/*   Updated: 2023/12/19 11:40:09 by ecortes-         ###   ########.fr       */
+/*   Updated: 2023/12/26 20:07:10 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ void sig_handler(int sig)
 
 int main(void)
 {
-	signal(SIGUSR1, sig_handler);
-	signal(SIGUSR2, sig_handler);
+	signal(SIGUSR1, &sig_handler);
+	signal(SIGUSR2, &sig_handler);
 
 	ft_printf("PID:\t%d\n", getpid());
 	while (1)
