@@ -6,7 +6,7 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 19:52:34 by ecortes-          #+#    #+#             */
-/*   Updated: 2023/12/26 21:09:38 by ecortes-         ###   ########.fr       */
+/*   Updated: 2023/12/28 12:22:56 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,9 @@ ft_printf("llegamos a sig_bits\n");
 		nb = nb / 2;
 		i++;
 	}
-	while (i >= 0)
+	while (i > -1)
 	{
+		ft_printf("llegamos al while de kill\n");
 		if (binary[i] == 0)
 			kill(pid, SIGUSR1);
 		else
@@ -49,7 +50,7 @@ ft_printf("llegamos a sig_bits\n");
 		i--;
 	}
 	ft_printf("salimos de sig_bits\n");
-	return (0);
+	return (1);
 }
 /*static int sig_bits(char c, int pid)
 {
@@ -126,4 +127,5 @@ int main(int argc, char **argv)
 		ft_error(2);
 	if (!sig_send(argv[2], pid))
 		ft_error(3);
+	ft_printf("mensaje enviado\n");
 }
