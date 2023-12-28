@@ -6,7 +6,7 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 20:10:10 by ecortes-          #+#    #+#             */
-/*   Updated: 2023/12/28 12:38:38 by ecortes-         ###   ########.fr       */
+/*   Updated: 2023/12/28 13:25:33 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,28 @@
 #include <unistd.h>
 
 int count = 0;
+int i = 0;
 
 void sig_handler(int sig)
+{
+	int susr2;
+
+	susr2 = 0;
+	if (sig == SIGUSR1)
+	{
+		i++;
+		//ft_printf("%d\n", i);
+	}	
+	else if (sig == SIGUSR2 && i != 0)
+	{
+		susr2++;
+		ft_printf("%c", i);
+		i = 0;
+	}
+	else
+		i = 0;
+}
+/*void sig_handler(int sig)
 {
 	static char buff[8];
 	//static int count;
@@ -47,7 +67,7 @@ ft_printf("la señal es: %d\n", sig);
 		//free(buff);
 	}
 	ft_printf("%c\n\n", nb);
-}
+}*/
 /*void sig_handler(int sig)
 {
 	static char buff[8];

@@ -6,7 +6,7 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 19:52:34 by ecortes-          #+#    #+#             */
-/*   Updated: 2023/12/28 12:22:56 by ecortes-         ###   ########.fr       */
+/*   Updated: 2023/12/28 13:29:16 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,20 @@ void ft_error(int n)
 		ft_printf("Error: Cadena vacia\n");
 	exit(n);
 }
-
 int sig_bits(char c, int pid)
+{
+	int i = 1;
+	while(i <= c)
+	{
+		kill(pid, SIGUSR1);
+		i++;
+		usleep(100);
+	}
+	kill(pid, SIGUSR2);
+	ft_printf("llevamos enviados %d sigusr1\n que corresponde a un: %c", i-1, i-1);
+	return (1);
+}
+/*int sig_bits(char c, int pid)
 {
 	int nb = (int)c;
 	int binary[8];
@@ -51,7 +63,7 @@ ft_printf("llegamos a sig_bits\n");
 	}
 	ft_printf("salimos de sig_bits\n");
 	return (1);
-}
+}*/
 /*static int sig_bits(char c, int pid)
 {
 	size_t i;
@@ -93,10 +105,10 @@ ft_printf("\nllegamos al sigsend\n");
 		ft_error(4);
 	while (str[count])
 	{
-		if (!sig_bits(str[count], pid))
-			return (0);
+		sig_bits(str[count], pid);
 		count++;
 	}
+
 	return (1);
 }
 
@@ -127,5 +139,8 @@ int main(int argc, char **argv)
 		ft_error(2);
 	if (!sig_send(argv[2], pid))
 		ft_error(3);
+	sig_bits('\n', pid);
+	kill(pid, SIGUSR2);
+	kill(pid, SIGUSR2);
 	ft_printf("mensaje enviado\n");
 }
