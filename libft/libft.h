@@ -6,7 +6,7 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 17:33:36 by ecortes-          #+#    #+#             */
-/*   Updated: 2023/12/26 20:10:01 by ecortes-         ###   ########.fr       */
+/*   Updated: 2023/12/20 18:52:43 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,9 @@
 # include <ctype.h>
 # include <stdlib.h>
 # include <unistd.h>
-# include "ft_printf.h"
-# include <stdint.h>
+#include "ft_printf.h"
+#include "get_next_line.h"
+#include <stdint.h>
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 5

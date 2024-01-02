@@ -6,7 +6,7 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 20:10:10 by ecortes-          #+#    #+#             */
-/*   Updated: 2023/12/28 13:25:33 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/01/02 18:40:10 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,8 @@
 #include <unistd.h>
 
 int count = 0;
-int i = 0;
 
-void sig_handler(int sig)
+/*void sig_handler(int sig)
 {
 	int susr2;
 
@@ -35,39 +34,38 @@ void sig_handler(int sig)
 	}
 	else
 		i = 0;
-}
-/*void sig_handler(int sig)
+}*/
+
+void sig_handler(int sig)
 {
-	static char buff[8];
-	//static int count;
-	int digit;
-	int nb;
-	int i;
-ft_printf("count :%d\n", count);
-ft_printf("la señal es: %d\n", sig);
-	i = 0;
-	nb = 0;
-	//if (count == 0)
-		//memcpy(buff, "00000000", 8);
-	if (sig == SIGUSR2)
-		buff[count] = '1';
+	static char str[8];
+	static int i;
+	int num;
+
+	num = 0;
+	if (count == 0)
+		i = 0;
+	if (sig == SIGUSR1)
+		str [i] = '1';
 	else
-		buff[count] = '0';
-	ft_printf("esto es despues del if sugusr\n");
+		str[i] = '0';
+	i++;
 	count++;
-	if (count == 8)
+	if (i == 8)
 	{
-		while (i < 8)
+		i--;
+		while (i >= 0)
 		{
-			digit = buff[i] - '0';
-			nb = nb * 2 + digit;
-			i++;
+			num = (str[i] - '0') + num * 2;
+			i--;
 		}
 		count = 0;
-		//free(buff);
+		ft_printf("%c", num);
+		ft_memset(str, 0, sizeof(str));
 	}
-	ft_printf("%c\n\n", nb);
-}*/
+	
+}
+
 /*void sig_handler(int sig)
 {
 	static char buff[8];

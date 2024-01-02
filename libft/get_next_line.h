@@ -1,38 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/12 15:38:49 by ecortes-          #+#    #+#             */
-/*   Updated: 2023/12/20 18:52:21 by ecortes-         ###   ########.fr       */
+/*   Created: 2023/10/03 15:43:12 by ecortes-          #+#    #+#             */
+/*   Updated: 2023/12/04 12:26:14 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
 
-void	*ft_calloc(size_t num, size_t size)
-{
-	char	*ptr;
-	size_t	i;
+# include <stdlib.h>
+# include <unistd.h>
+# include <stdio.h>
+# include <fcntl.h>
 
-	if (num >= SIZE_MAX || size >= SIZE_MAX)
-		return (NULL);
-	ptr = malloc(num * size);
-	if (ptr == NULL)
-	{
-		free(ptr);
-		return (NULL);
-	}
-	if (ptr != NULL)
-	{
-		i = 0;
-		while (i < num * size)
-		{
-			ptr[i] = 0;
-			i++;
-		}
-	}
-	return (ptr);
-}
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 5
+# endif
+
+char	*get_next_line(int fd);
+char	*ft_strjoin_2(char *s1, char *s2);
+char	*ft_extract_line(char *str);
+char	*ft_strchr(const char *s, int c);
+size_t	ft_strlen(const char *str);
+char	*ft_new_static(char *aux);
+
+#endif

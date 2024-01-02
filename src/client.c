@@ -6,7 +6,7 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 19:52:34 by ecortes-          #+#    #+#             */
-/*   Updated: 2023/12/28 13:29:16 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/01/02 18:31:17 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,20 @@ void ft_error(int n)
 		ft_printf("Error: Cadena vacia\n");
 	exit(n);
 }
+
 int sig_bits(char c, int pid)
+{
+	while (c > 0)
+	{
+		if (c % 2 == 0)
+			kill(pid, SIGUSR1);
+		else
+			kill(pid, SIGUSR2);
+		c = c / 2;
+	}
+	return (0);
+}
+/*int sig_bits(char c, int pid)
 {
 	int i = 1;
 	while(i <= c)
@@ -39,62 +52,8 @@ int sig_bits(char c, int pid)
 	kill(pid, SIGUSR2);
 	ft_printf("llevamos enviados %d sigusr1\n que corresponde a un: %c", i-1, i-1);
 	return (1);
-}
-/*int sig_bits(char c, int pid)
-{
-	int nb = (int)c;
-	int binary[8];
-	int i = 0;
-ft_printf("llegamos a sig_bits\n");
-	while (nb > 0)
-	{
-		binary[i] = nb % 2;
-		nb = nb / 2;
-		i++;
-	}
-	while (i > -1)
-	{
-		ft_printf("llegamos al while de kill\n");
-		if (binary[i] == 0)
-			kill(pid, SIGUSR1);
-		else
-			kill(pid, SIGUSR2);
-		i--;
-	}
-	ft_printf("salimos de sig_bits\n");
-	return (1);
 }*/
-/*static int sig_bits(char c, int pid)
-{
-	size_t i;
-	int bit;
-	char buff[8];
 
-	i = 7;
-	while (i >= 0)
-	{
-		bit = c & 1;
-		if (bit == 1)
-			buff[i] = '1';
-		else
-			buff[i] = '0';
-		c >>= 1;
-	}
-	while (buff[++i])
-	{
-		if (buff[i] == '0')
-		{
-			if (kill(pid, SIGUSR1) == -1)
-				bit = 0;
-		}
-		else
-		{
-			if (kill(pid, SIGUSR2) == -1)
-				bit = 0;
-		}
-	}
-	return (bit);
-}*/
 
 static int sig_send(char *str, int pid)
 {
