@@ -6,7 +6,7 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 19:52:34 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/01/05 19:01:40 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/01/05 19:04:42 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ int main(int argc, char **argv)
 	pid = ft_atoi(argv[1]);
 	if (!pid)
 		ft_error(2);
+		//bucle para mas argumentos???
 	if (!sig_send(argv[2], pid))
 		ft_error(3);
 	//sig_bits('\n', pid);
