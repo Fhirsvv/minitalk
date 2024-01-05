@@ -6,7 +6,7 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 19:52:34 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/01/02 18:31:17 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/01/05 19:01:40 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,49 +25,50 @@ void ft_error(int n)
 		ft_printf("Error: Pid incorrecto\n");
 	else if (n == 4)
 		ft_printf("Error: Cadena vacia\n");
+	else if (n == 5)
+		ft_printf("Error: señal no enviada");
 	exit(n);
 }
 
-int sig_bits(char c, int pid)
+int sig_bits(char c_, int pid)
 {
-	while (c > 0)
+	int i = 0;
+	int c = (int)c_;
+	while (i < 7)
 	{
 		if (c % 2 == 0)
-			kill(pid, SIGUSR1);
+		{
+			if (kill(pid, SIGUSR1) == -1)
+				ft_error(5);
+			//ft_printf("%d se ha enviado sigusr1\n", i);
+		}
 		else
-			kill(pid, SIGUSR2);
-		c = c / 2;
+		{
+			if (kill(pid, SIGUSR2) == -1)
+				ft_error(5);
+			//ft_printf("%d se ha enviado sigusr2\n", i);
+		}
+		c /= 2;
+		i++;
+		usleep(200);
 	}
 	return (0);
 }
-/*int sig_bits(char c, int pid)
-{
-	int i = 1;
-	while(i <= c)
-	{
-		kill(pid, SIGUSR1);
-		i++;
-		usleep(100);
-	}
-	kill(pid, SIGUSR2);
-	ft_printf("llevamos enviados %d sigusr1\n que corresponde a un: %c", i-1, i-1);
-	return (1);
-}*/
-
 
 static int sig_send(char *str, int pid)
 {
 	size_t count;
-ft_printf("\nllegamos al sigsend\n");
+	
 	count = 0;
 	if(!strlen(str))
 		ft_error(4);
 	while (str[count])
 	{
+		//ft_printf("se envia: %c ->> %i\n", str[count], (int)str[count]);
 		sig_bits(str[count], pid);
 		count++;
 	}
-
+	//ft_printf("se ha terminado de enviar %c\n", str[--count]);
 	return (1);
 }
 
@@ -98,8 +99,5 @@ int main(int argc, char **argv)
 		ft_error(2);
 	if (!sig_send(argv[2], pid))
 		ft_error(3);
-	sig_bits('\n', pid);
-	kill(pid, SIGUSR2);
-	kill(pid, SIGUSR2);
-	ft_printf("mensaje enviado\n");
+	//sig_bits('\n', pid);
 }

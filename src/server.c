@@ -6,89 +6,69 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 20:10:10 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/01/02 18:40:10 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/01/05 18:46:01 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minitalk.h"
 #include <signal.h>
 #include <unistd.h>
+#include <math.h>
 
 int count = 0;
 
-/*void sig_handler(int sig)
+int ft_pow (int nb, int exp)
 {
-	int susr2;
-
-	susr2 = 0;
-	if (sig == SIGUSR1)
-	{
-		i++;
-		//ft_printf("%d\n", i);
-	}	
-	else if (sig == SIGUSR2 && i != 0)
-	{
-		susr2++;
-		ft_printf("%c", i);
-		i = 0;
-	}
+	if (exp == 0)
+		return (1);
+	else if (exp == 1)
+		return (nb);
 	else
-		i = 0;
-}*/
+		return (nb * ft_pow(nb, exp - 1));
+}
 
+int to_decimal(char *str)
+{
+	int i;
+	int nb;
+
+	nb = 0;
+	i = 0;
+	while (i < 7)
+	{
+		nb = nb + (str[i] - '0') * ft_pow(2, 6 - i);
+		i++;
+	}
+	return (nb);
+}
 void sig_handler(int sig)
 {
-	static char str[8];
+	static char str[7];
 	static int i;
-	int num;
-
-	num = 0;
-	if (count == 0)
-		i = 0;
-	if (sig == SIGUSR1)
-		str [i] = '1';
-	else
-		str[i] = '0';
-	i++;
-	count++;
-	if (i == 8)
+	//static int num;
+	if (sig == SIGUSR1)	
 	{
-		i--;
-		while (i >= 0)
-		{
-			num = (str[i] - '0') + num * 2;
-			i--;
-		}
-		count = 0;
-		ft_printf("%c", num);
-		ft_memset(str, 0, sizeof(str));
+		str[6 - i] = '0';
+		
+		//ft_printf("%d ha llegado sigusr1\n", i);
+	}
+	else if (sig == SIGUSR2)
+	{
+		//num = num + ft_pow(10, i);
+		str[6 - i] = '1';
+		//ft_printf("%d ha llegado sigusr2\n", i);
+	}
+	//ft_printf("la str es : %s\n", str);
+	i++;
+	if (i > 6)
+	{
+		//ft_printf("BIN A DECIMAL: %c\n", to_decimal(str));
+		ft_printf("%c", to_decimal(str));
+		i = 0;
+		ft_bzero(str, 7);
 	}
 	
 }
-
-/*void sig_handler(int sig)
-{
-	static char buff[8];
-	static int count;
-	int result;
-	int i;
-
-	i = 0;
-	result = 0;
-	if (count == 0)
-		memcpy(buff, "00000000", 8);
-	if (sig == SIGUSR2)
-		buff[count] = '1';
-	count++;
-	if (count == 8)
-		while (i < 8)
-		{
-			if (buff[i] == 1)
-				result += 1 << (7 - i);
-		}
-	ft_printf("%d\n", result);
-}*/
-
 
 int main(void)
 {
