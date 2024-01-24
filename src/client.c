@@ -6,7 +6,7 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 19:52:34 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/01/24 12:06:50 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/01/24 12:14:00 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,21 +32,22 @@ void	ft_error(int n)
 
 int	sig_bits(char c_, int pid)
 {
-	int	i = 0;
-	int	c = (int)c_;
+	int	i;
+	int	c;
+
+	i = 0;
+	c = (int)c_;
 	while (i < 7)
 	{
 		if (c % 2 == 0)
 		{
 			if (kill(pid, SIGUSR1) == -1)
 				ft_error(5);
-			//ft_printf("%d se ha enviado sigusr1\n", i);
 		}
 		else
 		{
 			if (kill(pid, SIGUSR2) == -1)
 				ft_error(5);
-			//ft_printf("%d se ha enviado sigusr2\n", i);
 		}
 		c /= 2;
 		i++;
@@ -60,15 +61,13 @@ static int	sig_send(char *str, int pid)
 	size_t	count;
 
 	count = 0;
-	if(!strlen(str))
+	if (!strlen(str))
 		ft_error(4);
 	while (str[count])
 	{
-		//ft_printf("se envia: %c ->> %i\n", str[count], (int)str[count]);
 		sig_bits(str[count], pid);
 		count++;
 	}
-	//ft_printf("se ha terminado de enviar %c\n", str[--count]);
 	return (1);
 }
 
@@ -79,7 +78,7 @@ int	str_allnum(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if(isdigit((int)(str[i])) == 0)
+		if (isdigit((int)(str[i])) == 0)
 			return (0);
 		i++;
 	}

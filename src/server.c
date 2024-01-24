@@ -6,16 +6,13 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 20:10:10 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/01/24 12:09:25 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/01/24 12:21:47 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minitalk.h"
-#include <signal.h>
-#include <unistd.h>
-#include <math.h>
 
-int	ft_pow (int nb, int exp)
+int	ft_pow(int nb, int exp)
 {
 	if (exp == 0)
 		return (1);
@@ -25,10 +22,10 @@ int	ft_pow (int nb, int exp)
 		return (nb * ft_pow(nb, exp - 1));
 }
 
-int to_decimal(char *str)
+int	to_decimal(char *str)
 {
-	int i;
-	int nb;
+	int	i;
+	int	nb;
 
 	nb = 0;
 	i = 0;
@@ -39,12 +36,13 @@ int to_decimal(char *str)
 	}
 	return (nb);
 }
-void sig_handler(int sig)
+
+void	sig_handler(int sig)
 {
 	static char	str[7];
 	static int	i;
 
-	if (sig == SIGUSR1)	
+	if (sig == SIGUSR1)
 	{
 		str[6 - i] = '0';
 	}
@@ -59,10 +57,9 @@ void sig_handler(int sig)
 		i = 0;
 		ft_bzero(str, 7);
 	}
-	
 }
 
-int main(void)
+int	main(void)
 {
 	signal(SIGUSR1, &sig_handler);
 	signal(SIGUSR2, &sig_handler);
