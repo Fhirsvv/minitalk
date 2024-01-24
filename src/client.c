@@ -6,7 +6,7 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 19:52:34 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/01/24 12:14:00 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/01/24 12:23:36 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,4 +98,5 @@ int	main(int argc, char **argv)
 		ft_error(2);
 	if (!sig_send(argv[2], pid))
 		ft_error(3);
+	return (0);
 }
