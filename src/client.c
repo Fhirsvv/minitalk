@@ -6,13 +6,13 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 19:52:34 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/01/05 19:04:42 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/01/24 12:06:50 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minitalk.h"
 
-void ft_error(int n)
+void	ft_error(int n)
 {
 	if (n == 1)
 	{
@@ -30,10 +30,10 @@ void ft_error(int n)
 	exit(n);
 }
 
-int sig_bits(char c_, int pid)
+int	sig_bits(char c_, int pid)
 {
-	int i = 0;
-	int c = (int)c_;
+	int	i = 0;
+	int	c = (int)c_;
 	while (i < 7)
 	{
 		if (c % 2 == 0)
@@ -55,10 +55,10 @@ int sig_bits(char c_, int pid)
 	return (0);
 }
 
-static int sig_send(char *str, int pid)
+static int	sig_send(char *str, int pid)
 {
-	size_t count;
-	
+	size_t	count;
+
 	count = 0;
 	if(!strlen(str))
 		ft_error(4);
@@ -72,9 +72,9 @@ static int sig_send(char *str, int pid)
 	return (1);
 }
 
-int str_allnum(char *str)
+int	str_allnum(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i])
@@ -86,9 +86,9 @@ int str_allnum(char *str)
 	return (1);
 }
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
-	int pid;
+	int	pid;
 
 	if (argc != 3)
 		ft_error(1);
@@ -97,8 +97,6 @@ int main(int argc, char **argv)
 	pid = ft_atoi(argv[1]);
 	if (!pid)
 		ft_error(2);
-		//bucle para mas argumentos???
 	if (!sig_send(argv[2], pid))
 		ft_error(3);
-	//sig_bits('\n', pid);
 }

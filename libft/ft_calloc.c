@@ -6,7 +6,7 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 15:38:49 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/01/21 18:40:21 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/01/24 12:05:23 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,9 @@ void	*ft_calloc(size_t num, size_t size)
 	ptr = malloc(num * size);
 	if (ptr == NULL)
 	{
-		free(ptr); //esto sobra
 		return (NULL);
 	}
-	if (ptr != NULL) //esto sobra
+	if (ptr != NULL)
 	{
 		i = 0;
 		while (i < num * size)
