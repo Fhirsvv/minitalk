@@ -6,7 +6,7 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 19:52:34 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/01/24 12:23:36 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/04/01 15:06:01 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	str_allnum(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (isdigit((int)(str[i])) == 0)
+		if (ft_isdigit((int)(str[i])) == 0)
 			return (0);
 		i++;
 	}
