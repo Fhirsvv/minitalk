@@ -39,6 +39,7 @@ clean:
 
 fclean:		clean
 			@make fclean -C libft
+			@rm -rf client server
 
 .PHONY:		all libft clean fclean
 
