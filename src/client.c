@@ -6,7 +6,7 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 19:52:34 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/04/01 15:06:01 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/04/03 11:18:40 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static int	sig_send(char *str, int pid)
 	size_t	count;
 
 	count = 0;
-	if (!strlen(str))
+	if (!ft_strlen(str))
 		ft_error(4);
 	while (str[count])
 	{
